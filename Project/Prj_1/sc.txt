@@ -1,0 +1,9 @@
+@@@@ (lattice parameter, rho, energy per atom):  2.596 0.0571591728661993 -4.06000816455625
+@@@@ (lattice parameter, rho, energy per atom):  2.597 0.0570931692089046 -4.06000816455625
+@@@@ (lattice parameter, rho, energy per atom):  2.598 0.0570272671347559 -4.06000816455625
+@@@@ (lattice parameter, rho, energy per atom):  2.599 0.056961466448401 -4.06000816455625
+@@@@ (lattice parameter, rho, energy per atom):  2.600 0.0568957669549385 -4.06000816455625
+@@@@ (lattice parameter, rho, energy per atom):  2.601 0.0568301684599163 -4.06000816455625
+@@@@ (lattice parameter, rho, energy per atom):  2.602 0.0567646707693304 -4.06000816455625
+@@@@ (lattice parameter, rho, energy per atom):  2.603 0.0566992736896239 -4.06000816455625
+@@@@ (lattice parameter, rho, energy per atom):  2.604 0.0566339770276858 -4.06000816455625

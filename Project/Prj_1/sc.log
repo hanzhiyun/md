@@ -1,0 +1,876 @@
+LAMMPS (17 Nov 2016)
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.596*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00539875 on 1 procs for 1 steps with 27 atoms
+
+74.1% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0053618  | 0.0053618  | 0.0053618  |   0.0 | 99.32
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 7.1526e-06 | 7.1526e-06 | 7.1526e-06 |   0.0 |  0.13
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.98e-05   |            |       |  0.55
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.596 0.0571591728661993 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.597*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00504065 on 1 procs for 1 steps with 27 atoms
+
+79.4% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0050082  | 0.0050082  | 0.0050082  |   0.0 | 99.36
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.9605e-06 | 5.9605e-06 | 5.9605e-06 |   0.0 |  0.12
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.646e-05  |            |       |  0.53
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.597 0.0570931692089046 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.598*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00478244 on 1 procs for 1 steps with 27 atoms
+
+83.6% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0047526  | 0.0047526  | 0.0047526  |   0.0 | 99.38
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.4836e-06 | 5.4836e-06 | 5.4836e-06 |   0.0 |  0.11
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.432e-05  |            |       |  0.51
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.598 0.0570272671347559 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.599*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00470829 on 1 procs for 1 steps with 27 atoms
+
+85.0% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0046806  | 0.0046806  | 0.0046806  |   0.0 | 99.41
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.722e-06  | 5.722e-06  | 5.722e-06  |   0.0 |  0.12
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.193e-05  |            |       |  0.47
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.599 0.056961466448401 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.600*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00456166 on 1 procs for 1 steps with 27 atoms
+
+87.7% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0045314  | 0.0045314  | 0.0045314  |   0.0 | 99.34
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.722e-06  | 5.722e-06  | 5.722e-06  |   0.0 |  0.13
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.456e-05  |            |       |  0.54
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.600 0.0568957669549385 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.601*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00434327 on 1 procs for 1 steps with 27 atoms
+
+92.1% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0043161  | 0.0043161  | 0.0043161  |   0.0 | 99.37
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.2452e-06 | 5.2452e-06 | 5.2452e-06 |   0.0 |  0.12
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.193e-05  |            |       |  0.51
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.601 0.0568301684599163 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.602*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00440907 on 1 procs for 1 steps with 27 atoms
+
+90.7% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0043836  | 0.0043836  | 0.0043836  |   0.0 | 99.42
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.0068e-06 | 5.0068e-06 | 5.0068e-06 |   0.0 |  0.11
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.05e-05   |            |       |  0.47
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.602 0.0567646707693304 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.603*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00420403 on 1 procs for 1 steps with 27 atoms
+
+95.1% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0041766  | 0.0041766  | 0.0041766  |   0.0 | 99.35
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.0068e-06 | 5.0068e-06 | 5.0068e-06 |   0.0 |  0.12
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.241e-05  |            |       |  0.53
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.603 0.0566992736896239 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 2.596 2.597 2.598 2.599 2.600 2.601 2.602 2.603 2.604
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+#lattice          fcc 3.615
+#lattice         bcc 3.28
+lattice          sc 2.60
+Lattice spacing in x,y,z = 2.6 2.6 2.6
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+Created orthogonal box = (0 0 0) to (7.8 7.8 7.8)
+  1 by 1 by 1 MPI processor grid
+create_atoms     1 box
+Created 27 atoms
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+Reading potential file Si.sw with DATE: 2007-06-11
+mass             1 28
+neighbor         1.0 bin
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/27
+variable         r equal 27/($x*3)^3
+variable         r equal 27/(2.604*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 4.77118
+  ghost atom cutoff = 4.77118
+  binsize = 2.38559 -> bins = 4 4 4
+Memory usage per processor = 3.61106 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -109.62022            0   -109.62022     26827.18 
+       1            0   -109.62022            0   -109.62022     26827.18 
+Loop time of 0.00401902 on 1 procs for 1 steps with 27 atoms
+
+99.5% CPU use with 1 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -109.620220443     -109.620220443     -109.620220443
+  Force two-norm initial, final = 1.91214e-14 1.80075e-14
+  Force max component initial, final = 3.70714e-15 3.02924e-15
+  Final line search alpha, max atom move = 1 3.02924e-15
+  Iterations, force evaluations = 1 2
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0039947  | 0.0039947  | 0.0039947  |   0.0 | 99.39
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 5.0068e-06 | 5.0068e-06 | 5.0068e-06 |   0.0 |  0.12
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 1.931e-05  |            |       |  0.48
+
+Nlocal:    27 ave 27 max 27 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    189 ave 189 max 189 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    0 ave 0 max 0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:  702 ave 702 max 702 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 702
+Ave neighs/atom = 26
+Neighbor list builds = 0
+Dangerous builds = 0
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+@@@@ (lattice parameter, rho, energy per atom):  2.604 0.0566339770276858 -4.06000816455625
+
+clear
+next             x
+jump             in.sc
+
+Total wall time: 0:00:00

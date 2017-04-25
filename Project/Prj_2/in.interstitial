@@ -1,0 +1,33 @@
+units			metal 
+boundary		p p p
+atom_style		atomic 
+lattice			fcc 3.61
+region			box block 0 4 0 4 0 4
+create_box		1 box
+create_atoms	1 box 						# the number of atoms is fcc 4 * 4^3
+
+pair_style		eam/alloy
+pair_coeff 		* * Cu_mishin1.eam.alloy Cu
+
+run				0
+variable		E equal pe
+variable		N equal atoms
+print			"the number of atoms & system energy now are $N $E"
+print  			"@@@@ $N $E"
+
+create_atoms	1 single 2.45 2.05 2.05
+
+min_style		sd
+minimize		1.0e-12 1.0e-12 1000 1000
+print			"interstitial introduced, minimized: $N atoms, energy is $E"
+print  			"@@@@ $N $E"
+
+fix 			1 all nvt 100 100 100 drag 0.2   # nvt ensemble, atomic number, volume and temperature remains constant;T=100K
+
+compute 		3 all pe/atom
+compute			4 all ke/atom
+compute 		5 all coord/atom 3.0
+dump			1 all custom 1 vacancy.lammpstrj id xs ys zs c_3 c_4 c_5
+
+timestep 		0.005
+run  			1

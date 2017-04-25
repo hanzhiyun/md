@@ -1,0 +1,165 @@
+LAMMPS (17 Nov 2016)
+units			metal
+boundary		p p p
+atom_style		atomic
+lattice			fcc 3.61
+Lattice spacing in x,y,z = 3.61 3.61 3.61
+region			box block 0 6 0 6 0 6
+create_box		1 box
+Created orthogonal box = (0 0 0) to (21.66 21.66 21.66)
+  1 by 2 by 2 MPI processor grid
+create_atoms	1 box 						# the number of atoms is fcc 4 * 6^3
+Created 864 atoms
+
+pair_style		eam/alloy
+pair_coeff 		* * Cu_mishin1.eam.alloy Cu
+Reading potential file Cu_mishin1.eam.alloy with DATE: 2007-10-12
+
+run				0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.50679
+  ghost atom cutoff = 7.50679
+  binsize = 3.75339 -> bins = 6 6 6
+Memory usage per processor = 2.82965 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -3058.6748            0   -3058.6748    5697.8903 
+Loop time of 1.5974e-05 on 4 procs for 0 steps with 864 atoms
+
+0.0% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 1.597e-05  |            |       |100.00
+
+Nlocal:    216 ave 216 max 216 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+Nghost:    2147 ave 2147 max 2147 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+Neighs:    15120 ave 16075 max 14140 min
+Histogram: 1 0 1 0 0 0 0 1 0 1
+
+Total # of neighbors = 60480
+Ave neighs/atom = 70
+Neighbor list builds = 0
+Dangerous builds = 0
+variable		E equal pe
+variable		N equal atoms
+print			"the number of atoms & system energy now are $N $E"
+the number of atoms & system energy now are 864 -3058.67480174946
+print  			"@@@@ $N $E"
+@@@@ 864 -3058.67480174946
+
+region 			centerpoint block 3 3.05 3 3.05 3 3.05
+delete_atoms	region centerpoint
+Deleted 1 atoms, new total = 863
+
+min_style		sd
+minimize		1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.50679
+  ghost atom cutoff = 7.50679
+  binsize = 3.75339 -> bins = 6 6 6
+Memory usage per processor = 3.95465 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -3053.8352            0   -3053.8352    5315.5652 
+      43            0   -3053.8746            0   -3053.8746    5206.0689 
+Loop time of 0.0691885 on 4 procs for 43 steps with 863 atoms
+
+99.7% CPU use with 4 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         -3053.8352212     -3053.87457108     -3053.87457108
+  Force two-norm initial, final = 0.627137 0.000158419
+  Force max component initial, final = 0.124161 6.62169e-06
+  Final line search alpha, max atom move = 1 6.62169e-06
+  Iterations, force evaluations = 43 86
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.05443    | 0.058622   | 0.060632   |   1.0 | 84.73
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0070546  | 0.0090317  | 0.013225   |   2.6 | 13.05
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.001534   |            |       |  2.22
+
+Nlocal:    215.75 ave 216 max 215 min
+Histogram: 1 0 0 0 0 0 0 0 0 3
+Nghost:    2146.25 ave 2147 max 2146 min
+Histogram: 3 0 0 0 0 0 0 0 0 1
+Neighs:    15085 ave 16000 max 14117 min
+Histogram: 1 0 1 0 0 0 0 1 0 1
+
+Total # of neighbors = 60340
+Ave neighs/atom = 69.9189
+Neighbor list builds = 0
+Dangerous builds = 0
+print			"the number of atoms & system energy now are $N $E"
+the number of atoms & system energy now are 863 -3053.87457108
+print  			"@@@@ $N $E"
+@@@@ 863 -3053.87457108
+compute 		3 all pe/atom
+compute			4 all ke/atom
+compute 		5 all coord/atom 3.0
+dump			1 all custom 1 vacancy.lammpstrj id xs ys zs c_3 c_4 c_5
+
+timestep 		0.005
+run  			1
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+Neighbor list info ...
+  2 neighbor list requests
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.50679
+  ghost atom cutoff = 7.50679
+  binsize = 3.75339 -> bins = 6 6 6
+Memory usage per processor = 4.59118 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+      43            0   -3053.8746            0   -3053.8746    5206.0689 
+      44            0   -3053.8746            0   -3053.8746    5206.0689 
+Loop time of 0.00216478 on 4 procs for 1 steps with 863 atoms
+
+Performance: 199.558 ns/day, 0.120 hours/ns, 461.940 timesteps/s
+92.4% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.00057268 | 0.00060695 | 0.00062299 |   0.1 | 28.04
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 4.8399e-05 | 6.9916e-05 | 0.00011039 |   0.3 |  3.23
+Output  | 0.0008049  | 0.00081211 | 0.00083208 |   0.0 | 37.51
+Modify  | 2.3842e-07 | 3.5763e-07 | 4.7684e-07 |   0.0 |  0.02
+Other   |            | 0.0006754  |            |       | 31.20
+
+Nlocal:    215.75 ave 216 max 215 min
+Histogram: 1 0 0 0 0 0 0 0 0 3
+Nghost:    2146.25 ave 2147 max 2146 min
+Histogram: 3 0 0 0 0 0 0 0 0 1
+Neighs:    15085 ave 16019 max 14085 min
+Histogram: 1 0 0 1 0 0 0 1 0 1
+FullNghs:  30170 ave 30216 max 30052 min
+Histogram: 1 0 0 0 0 0 0 0 0 3
+
+Total # of neighbors = 120680
+Ave neighs/atom = 139.838
+Neighbor list builds = 0
+Dangerous builds = 0
+Total wall time: 0:00:00

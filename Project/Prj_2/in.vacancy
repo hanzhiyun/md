@@ -1,0 +1,31 @@
+units			metal 
+boundary		p p p
+atom_style		atomic 
+lattice			fcc 3.61
+region			box block 0 6 0 6 0 6
+create_box		1 box
+create_atoms	1 box 						# the number of atoms is fcc 4 * 6^3
+
+pair_style		eam/alloy
+pair_coeff 		* * Cu_mishin1.eam.alloy Cu
+
+run				0
+variable		E equal pe
+variable		N equal atoms
+print			"the number of atoms & system energy now are $N $E"
+print  			"@@@@ $N $E"
+
+region 			centerpoint block 3 3.05 3 3.05 3 3.05
+delete_atoms	region centerpoint
+
+min_style		sd
+minimize		1.0e-12 1.0e-12 1000 1000
+print			"the number of atoms & system energy now are $N $E"
+print  			"@@@@ $N $E"
+compute 		3 all pe/atom
+compute			4 all ke/atom
+compute 		5 all coord/atom 3.0
+dump			1 all custom 1 vacancy.lammpstrj id xs ys zs c_3 c_4 c_5
+
+timestep 		0.005
+run  			1

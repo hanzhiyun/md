@@ -1,0 +1,42 @@
+# bulk Silicon lattice
+units            metal
+boundary         p p p
+
+atom_style       atomic
+
+variable         x index 3.611 3.612 3.613 3.614 3.615 3.616 3.617 3.618 3.619
+
+#lattice          diamond $x
+#lattice         diamond 5.431
+lattice          fcc 3.615
+#lattice         bcc 3.28
+#lattice          sc 2.60
+
+region           box block 0 3 0 3 0 3
+create_box       1 box
+create_atoms     1 box
+
+pair_style       sw
+pair_coeff       * * Si.sw Si
+mass             1 28
+neighbor         1.0 bin
+neigh_modify     every 1 delay 5 check yes
+
+variable         P equal pe/108
+variable         r equal 108/($x*3)^3
+timestep         0.005
+thermo           10
+
+min_style        sd
+minimize         1.0e-12 1.0e-12 1000 1000
+
+compute          3 all pe/atom
+compute          4 all ke/atom
+compute          5 all coord/atom 3.0
+#dump             1 all custom 1 atom.lammpstrj id xs ys zs c_3 c_4 c_5
+print            "@@@@ (lattice parameter, rho, energy per atom):  $x $r $P"
+
+clear
+next             x
+jump             in.fcc
+
