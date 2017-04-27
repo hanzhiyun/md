@@ -1,0 +1,3 @@
+@@@@ 256 -906.274015333037
+@@@@ 257 -906.61323314246
+self-interstitial formation energy is: 3.20090685754 eV

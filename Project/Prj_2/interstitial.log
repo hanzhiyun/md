@@ -1,0 +1,254 @@
+LAMMPS (17 Nov 2016)
+units			metal
+boundary		p p p
+atom_style		atomic
+lattice			fcc 3.61
+Lattice spacing in x,y,z = 3.61 3.61 3.61
+region			box block 0 4 0 4 0 4
+create_box		1 box
+Created orthogonal box = (0 0 0) to (14.44 14.44 14.44)
+  1 by 2 by 2 MPI processor grid
+create_atoms	1 box 						# the number of atoms is fcc 4 * 4^3
+Created 256 atoms
+
+pair_style		eam/alloy
+pair_coeff 		* * Cu_mishin1.eam.alloy Cu
+Reading potential file Cu_mishin1.eam.alloy with DATE: 2007-10-12
+
+run				0
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:55)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.50679
+  ghost atom cutoff = 7.50679
+  binsize = 3.75339 -> bins = 4 4 4
+Memory usage per processor = 2.79619 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -906.27402            0   -906.27402    5697.8903 
+Loop time of 3.21865e-06 on 4 procs for 0 steps with 256 atoms
+
+0.0% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 3.219e-06  |            |       |100.00
+
+Nlocal:    64 ave 64 max 64 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+Nghost:    1373 ave 1373 max 1373 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+Neighs:    4480 ave 4904 max 4041 min
+Histogram: 1 0 0 1 0 0 0 1 0 1
+
+Total # of neighbors = 17920
+Ave neighs/atom = 70
+Neighbor list builds = 0
+Dangerous builds = 0
+variable		E equal pe
+variable		N equal atoms
+print			"the number of atoms & system energy now are $N $E"
+the number of atoms & system energy now are 256 -906.274015333037
+print  			"@@@@ $N $E"
+@@@@ 256 -906.274015333037
+
+create_atoms	1 single 2.45 2.05 2.05
+Created 1 atoms
+
+min_style		sd
+minimize		1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.50679
+  ghost atom cutoff = 7.50679
+  binsize = 3.75339 -> bins = 4 4 4
+Memory usage per processor = 3.92119 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -890.76482            0   -890.76482    34100.746 
+     228            0   -906.49527            0   -906.49527    16201.548 
+Loop time of 0.118924 on 4 procs for 228 steps with 257 atoms
+
+98.4% CPU use with 4 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -890.764821267     -906.495266044     -906.495266045
+  Force two-norm initial, final = 50.5558 0.000149169
+  Force max component initial, final = 25.196 6.79888e-05
+  Final line search alpha, max atom move = 1 6.79888e-05
+  Iterations, force evaluations = 228 451
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.084529   | 0.090424   | 0.094796   |   1.3 | 76.04
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.015488   | 0.019971   | 0.025979   |   2.8 | 16.79
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.008529   |            |       |  7.17
+
+Nlocal:    64.25 ave 65 max 64 min
+Histogram: 3 0 0 0 0 0 0 0 0 1
+Nghost:    1380.75 ave 1381 max 1380 min
+Histogram: 1 0 0 0 0 0 0 0 0 3
+Neighs:    4515.75 ave 4989 max 4058 min
+Histogram: 1 0 0 1 0 0 1 0 0 1
+
+Total # of neighbors = 18063
+Ave neighs/atom = 70.284
+Neighbor list builds = 0
+Dangerous builds = 0
+print			"interstitial introduced, minimized: $N atoms, energy is $E"
+interstitial introduced, minimized: 257 atoms, energy is -906.495266044997
+# print  			"@@@@ $N $E"
+
+fix 			1 all nvt temp 100 100 100 drag 0.2   		# The nvt ensemble, atomic number, volume and temperature remains constant;T=100K
+timestep		0.005
+run 			1000
+Neighbor list info ...
+  1 neighbor list requests
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.50679
+  ghost atom cutoff = 7.50679
+  binsize = 3.75339 -> bins = 4 4 4
+Memory usage per processor = 2.79619 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+     228            0   -906.49527            0   -906.49527    16201.548 
+    1228     1.456388   -906.54336            0   -906.49517    16045.753 
+Loop time of 0.18739 on 4 procs for 1000 steps with 257 atoms
+
+Performance: 2305.357 ns/day, 0.010 hours/ns, 5336.475 timesteps/s
+98.7% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.14663    | 0.148      | 0.15004    |   0.3 | 78.98
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.027968   | 0.029917   | 0.031204   |   0.7 | 15.97
+Output  | 2.4796e-05 | 3.7491e-05 | 7.534e-05  |   0.4 |  0.02
+Modify  | 0.005832   | 0.0061867  | 0.0065863  |   0.4 |  3.30
+Other   |            | 0.003251   |            |       |  1.74
+
+Nlocal:    64.25 ave 70 max 59 min
+Histogram: 1 0 0 0 2 0 0 0 0 1
+Nghost:    1376.75 ave 1382 max 1371 min
+Histogram: 1 0 0 0 0 2 0 0 0 1
+Neighs:    4539.75 ave 4705 max 4332 min
+Histogram: 1 0 0 0 1 0 0 1 0 1
+
+Total # of neighbors = 18159
+Ave neighs/atom = 70.6576
+Neighbor list builds = 0
+Dangerous builds = 0
+print 			"nvt performed, temperature up: $N atoms, total energy is $E"
+nvt performed, temperature up: 257 atoms, total energy is -906.543359908408
+
+fix 			1 all nvt temp 100 0.0001 100 drag 0.2 		# The NVT ensemble, temperature from 100 K to 0.0001 K
+run 			1000
+Memory usage per processor = 2.79619 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+    1228     1.456388   -906.54336            0   -906.49517    16045.753 
+    2228     1.852543   -906.55638            0   -906.49508     16051.17 
+Loop time of 0.202431 on 4 procs for 1000 steps with 257 atoms
+
+Performance: 2134.063 ns/day, 0.011 hours/ns, 4939.962 timesteps/s
+97.8% CPU use with 4 MPI tasks x no OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.14949    | 0.15393    | 0.16373    |   1.5 | 76.04
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.028537   | 0.038067   | 0.043038   |   2.9 | 18.80
+Output  | 2.4319e-05 | 3.6955e-05 | 7.4863e-05 |   0.4 |  0.02
+Modify  | 0.0065839  | 0.0070929  | 0.0075409  |   0.5 |  3.50
+Other   |            | 0.003305   |            |       |  1.63
+
+Nlocal:    64.25 ave 72 max 55 min
+Histogram: 1 0 1 0 0 0 0 0 1 1
+Nghost:    1375.75 ave 1384 max 1369 min
+Histogram: 1 1 0 0 0 0 1 0 0 1
+Neighs:    4539.5 ave 4840 max 4347 min
+Histogram: 1 0 1 1 0 0 0 0 0 1
+
+Total # of neighbors = 18158
+Ave neighs/atom = 70.6537
+Neighbor list builds = 0
+Dangerous builds = 0
+print 			"nvt performed, temperature down: $N atoms, total energy is $E"
+nvt performed, temperature down: 257 atoms, total energy is -906.556381262547
+
+compute 		3 all pe/atom 							# Calculate the potential energy each atom
+compute			4 all ke/atom 							# Calculate the kinetic energy of each atom
+compute 		5 all coord/atom 3.0 					# The calculation of each neighbor atoms
+dump			1 all custom 1 interstitial.lammpstrj id xs ys zs c_3 c_4 c_5
+
+min_style 		sd
+minimize 		1.0e-12 1.0e-12 1000 1000
+WARNING: Resetting reneighboring criteria during minimization (../min.cpp:168)
+Neighbor list info ...
+  2 neighbor list requests
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 7.50679
+  ghost atom cutoff = 7.50679
+  binsize = 3.75339 -> bins = 4 4 4
+Memory usage per processor = 5.67519 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+    2228     1.852543   -906.55638            0   -906.49508     16051.17 
+    2334     1.852543   -906.61323            0   -906.55193    15961.956 
+Loop time of 0.0976005 on 4 procs for 106 steps with 257 atoms
+
+93.2% CPU use with 4 MPI tasks x no OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+        -906.556381263     -906.613233142     -906.613233142
+  Force two-norm initial, final = 0.537086 0.000173846
+  Force max component initial, final = 0.0735765 0.000136047
+  Final line search alpha, max atom move = 1 0.000136047
+  Iterations, force evaluations = 106 209
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.036652   | 0.039319   | 0.043956   |   1.4 | 40.29
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0066829  | 0.010816   | 0.01344    |   2.6 | 11.08
+Output  | 0.023798   | 0.032282   | 0.04082    |   3.4 | 33.08
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.01518    |            |       | 15.56
+
+Nlocal:    64.25 ave 75 max 55 min
+Histogram: 1 1 0 0 0 0 0 1 0 1
+Nghost:    1374.75 ave 1382 max 1366 min
+Histogram: 1 0 0 1 0 0 0 0 1 1
+Neighs:    4539.25 ave 5144 max 4007 min
+Histogram: 1 0 0 1 0 1 0 0 0 1
+FullNghs:  9078.5 ave 10586 max 7779 min
+Histogram: 1 1 0 0 0 0 1 0 0 1
+
+Total # of neighbors = 36314
+Ave neighs/atom = 141.3
+Neighbor list builds = 0
+Dangerous builds = 0
+print 			"the final state: $N atoms, total energy is $E"
+the final state: 257 atoms, total energy is -906.61323314246
+print  			"@@@@ $N $E"
+@@@@ 257 -906.61323314246
+Total wall time: 0:00:00
