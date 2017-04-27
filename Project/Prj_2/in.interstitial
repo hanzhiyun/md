@@ -20,14 +20,23 @@ create_atoms	1 single 2.45 2.05 2.05
 min_style		sd
 minimize		1.0e-12 1.0e-12 1000 1000
 print			"interstitial introduced, minimized: $N atoms, energy is $E"
+# print  			"@@@@ $N $E"
+
+fix 			1 all nvt temp 100 100 100 drag 0.2   		# The nvt ensemble, atomic number, volume and temperature remains constant;T=100K
+timestep		0.005
+run 			1000
+print 			"nvt performed, temperature up: $N atoms, total energy is $E"
+
+fix 			1 all nvt temp 100 0.0001 100 drag 0.2 		# The NVT ensemble, temperature from 100 K to 0.0001 K
+run 			1000
+print 			"nvt performed, temperature down: $N atoms, total energy is $E"
+
+compute 		3 all pe/atom 							# Calculate the potential energy each atom
+compute			4 all ke/atom 							# Calculate the kinetic energy of each atom
+compute 		5 all coord/atom 3.0 					# The calculation of each neighbor atoms
+dump			1 all custom 1 interstitial.lammpstrj id xs ys zs c_3 c_4 c_5
+
+min_style 		sd
+minimize 		1.0e-12 1.0e-12 1000 1000
+print 			"the final state: $N atoms, total energy is $E"
 print  			"@@@@ $N $E"
-
-fix 			1 all nvt 100 100 100 drag 0.2   # nvt ensemble, atomic number, volume and temperature remains constant;T=100K
-
-compute 		3 all pe/atom
-compute			4 all ke/atom
-compute 		5 all coord/atom 3.0
-dump			1 all custom 1 vacancy.lammpstrj id xs ys zs c_3 c_4 c_5
-
-timestep 		0.005
-run  			1

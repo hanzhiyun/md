@@ -1,2 +1,5 @@
 # My configurations:
 *.cfg
+*.lammpstrj
+*.txt
+*.log
